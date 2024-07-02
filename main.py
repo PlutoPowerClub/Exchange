@@ -13,6 +13,41 @@ rt = app.route
 @rt("/{fname:path}.{ext:static}")
 async def get(fname:str, ext:str): return FileResponse(f'{fname}.{ext}')
 
+algos = [
+  {
+    "id": "sma",
+    "name": "Simple Moving Average",
+    "code": "def sma(data, window=5):\n  return data.rolling(window=window).mean()",
+    "description": "Simple Moving Average is the average of the last n periods.",
+    "params": [
+      {"name": "window", "type": "int", "default": 5, "description": "The number of periods to average."}
+    ]
+  },
+  {
+    "id": "ema",
+    "name": "Exponential Moving Average",
+    "code": "def ema(data, window=5):\n  return data.ewm(span=window, adjust=False).mean()",
+    "description": "Exponential Moving Average is the weighted average of the last n periods.",
+    "params": [
+      {"name": "window", "type": "int", "default": 5, "description": "The number of periods to average."}
+    ]
+  },
+  {
+    "id": "cloud",
+    "name": "Hold During Cloudy Weeks",
+    "code": "def cloud(data):\n  return data",
+    "description": "Like SMA, but only buy/sell during cloudy weeks.",
+    "params": []
+  },
+  {
+    "id": "linreg",
+    "name": "Linear Regression",
+    "code": "def linreg(data):\n  return data",
+    "description": "Use linear regression to predict future prices.",
+    "params": []
+  }
+]
+  
 
 @rt("/")
 def get():
@@ -39,7 +74,7 @@ def get():
     ),
     Section(
       # Textarea(id="input", width="100%", height="800px", placeholder="Enter a message..."),
-      Textarea(id="input", style="width: 60%; height: 400px;", placeholder="energy buy/sell algo loading...", content="if TODO"),
+      Textarea(algos[0]["code"], id="input", style="width: 60%; height: 400px;", placeholder="energy buy/sell algo loading..."),
       Button("Save", onclick="save()")
     ),
   )
