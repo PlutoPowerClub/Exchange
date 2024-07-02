@@ -1,5 +1,4 @@
 var series = {
-  monthDataSeries1: {
     prices: [
       8107.85,
       8128.0,
@@ -16,7 +15,7 @@ var series = {
       9340.85,
       9467.3
     ],
-    dates: [
+    datetimes: [
       "13 Nov 2017",
       "14 Nov 2017",
       "15 Nov 2017",
@@ -32,12 +31,11 @@ var series = {
       "29 Nov 2017",
       "30 Nov 2017"
     ]
-  }
 };
 
 var options = {
   series: [{
-  data: series.monthDataSeries1.prices
+  data: series.prices
 }],
   chart: {
   height: 350,
@@ -147,7 +145,7 @@ title: {
   text: 'UK Energy Prices',
   align: 'left'
 },
-labels: series.monthDataSeries1.dates,
+labels: series.datetimes,
 xaxis: {
   type: 'datetime',
 },
