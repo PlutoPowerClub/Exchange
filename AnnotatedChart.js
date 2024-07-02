@@ -156,22 +156,22 @@ labels: series.datetime,
 yaxis: {
   labels: {
     formatter: function (value) {
-      return "$" + value + "  / MWh";
+      return value + "p / kWh";
     }
   },
 },
 xaxis: {
   type: 'datetime',
   labels: {
-    formatter: function (value) {
-      return value;
-    }
-    // datetimeFormatter: {
-    //   year: 'yyyy',
-    //   month: 'MMM \'yy',
-    //   day: 'dd MMM',
-    //   hour: 'HH:mm'
+    // formatter: function (value) {
+    //   return value;
     // }
+    datetimeFormatter: {
+      year: 'yyyy',
+      month: 'MMM \'yy',
+      day: 'dd MMM',
+      hour: 'HH:mm'
+    }
   }
 },
 };
