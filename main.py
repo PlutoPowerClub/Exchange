@@ -18,7 +18,28 @@ algos = [
   {
     "id": "cloud",
     "name": "Hold During Extended Cloud Cover",
-    "code": "def cloud(data):\n  return data",
+    "code": """def seller(current_consumption, current_generation, latitude, longitude, days):
+    weather = __weather_rating(__weather(latitude, longitude, days))
+    battery_status = __battery_capacity()
+    # Trade cautiously during bad weather
+    if current_consumption < current_generation:
+        trade = 1
+        hint = ''
+    else:
+        trade = 0
+        hint = 'Usage is below generation capacity.'
+    if trade == 1:
+        if weather == 'bad' and battery_status == 'low':
+            trade = 0
+            hint = "Charging batteries, not selling."
+        if weather == 'good' and battery_status == 'high':
+            trade = 1
+            hint = 'Selling energy at 15p/kWh.'
+        if weather == 'bad' and battery_status == 'high':
+            trade = 1
+            hint = 'Selling energy at 15p/kWh.'
+    response = {"trade":trade, "hint": hint}
+    return response""",
     "description": "Buy/sell only when it is mostly sunny, to ensure our community has energy to use for our needs.",
     "params": []
   },

@@ -153,15 +153,25 @@ title: {
   align: 'left'
 },
 labels: series.datetime,
+yaxis: {
+  labels: {
+    formatter: function (value) {
+      return "$" + value + "  / MWh";
+    }
+  },
+},
 xaxis: {
   type: 'datetime',
   labels: {
-    datetimeFormatter: {
-      year: 'yyyy',
-      month: 'MMM \'yy',
-      day: 'dd MMM',
-      hour: 'HH:mm'
+    formatter: function (value) {
+      return value;
     }
+    // datetimeFormatter: {
+    //   year: 'yyyy',
+    //   month: 'MMM \'yy',
+    //   day: 'dd MMM',
+    //   hour: 'HH:mm'
+    // }
   }
 },
 };
