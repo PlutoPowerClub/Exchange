@@ -1,5 +1,7 @@
 # StarfishExchange
 
+Web UI for the Starfish Exchange for energy buying and selling.
+
 To install:
 
 ```bash
@@ -14,4 +16,12 @@ To run locally:
 
 ```bash
 $ python main.py --reload
+```
+
+To deploy:
+    
+```bash
+brew install railway
+railway login
+railway up
 ```

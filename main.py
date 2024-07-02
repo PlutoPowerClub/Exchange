@@ -3,6 +3,7 @@ import json
 import uvicorn
 
 app = FastHTMLWithLiveReload(hdrs=(
+  # Script(src='https://cdn.jsdelivr.net/npm/jquery'),
   Script(src='https://cdn.jsdelivr.net/npm/apexcharts'),
   Script(src='AnnotatedChart.js'),
   )
@@ -175,11 +176,10 @@ def get():
     Section(
       H2("Energy Prices in Real Time"),
       Div(id="chart", width="100%", height="500px")
-      # TODO pass series_json into AnnotatedChart.js
     ),
     Section(
       H2("Algorithm"),
-      P("Here we empower your community to choose how you buy and sell energy in real time."),
+      P("Choose exactly how you buy and sell energy in real time."),
       Select(
         Option("Simple Moving Average", value="sma"),
         Option("Exponential Moving Average", value="ema"),
@@ -189,6 +189,7 @@ def get():
         Option("Neural Network (PyTorch)", value="nnpytorch"),
         Option("Other", value="other"),
         id="algo-select",
+        style="width: 60%;",
         onchange="loadAlgo()",
       ),
     ),

@@ -1,5 +1,11 @@
+// var series = {
+//   value: [
+//   ],
+//   datetime: [
+//   ]
+// };
 var series = {
-    prices: [
+    value: [
       8107.85,
       8128.0,
       8122.9,
@@ -15,7 +21,7 @@ var series = {
       9340.85,
       9467.3
     ],
-    datetimes: [
+    datetime: [
       "13 Nov 2017",
       "14 Nov 2017",
       "15 Nov 2017",
@@ -35,12 +41,13 @@ var series = {
 
 var options = {
   series: [{
-  data: series.prices
+  data: series.value
 }],
   chart: {
   height: 350,
   type: 'line',
-  id: 'areachart-2'
+  id: 'areachart-2',
+  reversed: false
 },
 annotations: {
   yaxis: [{
@@ -145,13 +152,37 @@ title: {
   text: 'UK Energy Prices',
   align: 'left'
 },
-labels: series.datetimes,
+labels: series.datetime,
 xaxis: {
-  type: 'datetime',
+  // type: 'datetime',
+  labels: {
+    datetimeFormatter: {
+      year: 'yyyy',
+      month: 'MMM \'yy',
+      day: 'dd MMM',
+      hour: 'HH:mm'
+    }
+  }
 },
 };
 
 document.addEventListener('DOMContentLoaded', function() {
   var chart = new ApexCharts(document.querySelector("#chart"), options);
   chart.render();
+
+  var url = 'https://zuzanakovacsova--starfish-get-tariff.modal.run/';
+
+  let series;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(series => {
+      console.log('Data stored in series:', series);
+      chart.updateSeries([{
+        data: series
+      }])
+    })
+    .catch(error => console.error('Error:', error));
+
 });
+
