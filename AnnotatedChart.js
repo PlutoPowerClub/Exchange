@@ -85,7 +85,7 @@ annotations: {
       text: 'Anno Test',
     }
   }, {
-    x: new Date('26 Nov 2017').getTime(),
+    x: new Date('3 Nov 2017').getTime(),
     x2: new Date('28 Nov 2017').getTime(),
     fillColor: '#B3F7CA',
     opacity: 0.4,
@@ -144,7 +144,7 @@ grid: {
   }
 },
 title: {
-  text: 'Line with Annotations',
+  text: 'UK Energy Prices',
   align: 'left'
 },
 labels: series.monthDataSeries1.dates,

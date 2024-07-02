@@ -1,5 +1,7 @@
 from fasthtml.common import *
+import httpx
 import json
+import pandas as pd
 import uvicorn
 
 app = FastHTMLWithLiveReload(hdrs=(
@@ -166,6 +168,26 @@ def decide_action(weather_data):
   }
 ]
 
+# Get data from Octopus API, and reformat for ApexCharts
+url = "https://api.octopus.energy/v1/products/GO-VAR-22-10-14/electricity-tariffs/E-1R-GO-VAR-22-10-14-A/standard-unit-rates/?period_from=2024-06-30T00:00Z&period_to=2024-07-02T12"
+response = httpx.get(url)
+data = response.json()
+df = pd.DataFrame(data['results'])
+series = {
+    "monthDataSeries1": {
+        "prices": [],
+        "dates": []
+    }
+}
+for result in data["results"]:
+    value_inc_vat = result["value_inc_vat"]
+    valid_from = datetime.fromisoformat(result["valid_from"][:-1])  # Remove the 'Z' from the end
+    valid_from_str = valid_from.strftime("%d %b %Y")
+
+    series["monthDataSeries1"]["prices"].append(value_inc_vat)
+    series["monthDataSeries1"]["dates"].append(valid_from_str)
+series_json = json.dumps(series)
+
 @rt("/")
 def get():
   return Title("Starfish Exchange"), Main(
@@ -175,6 +197,7 @@ def get():
     Section(
       H2("Energy Prices in Real Time"),
       Div(id="chart", width="100%", height="500px")
+      # TODO pass series_json into AnnotatedChart.js
     ),
     Section(
       H2("Algorithm"),
