@@ -1,8 +1,8 @@
 from fasthtml.common import *
+import json
 import uvicorn
 
 app = FastHTMLWithLiveReload(hdrs=(
-  # Script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'),
   Script(src='https://cdn.jsdelivr.net/npm/apexcharts'),
   Script(src='AnnotatedChart.js'),
   )
@@ -47,7 +47,6 @@ algos = [
     "params": []
   }
 ]
-  
 
 @rt("/")
 def get():
@@ -69,17 +68,26 @@ def get():
         Option("Linear Regression", value="linreg"),
         Option("Random Forest", value="rf"),
         Option("Neural Network", value="nn"),
-        Option("Other", value="other")
+        Option("Other", value="other"),
+        id="algo-select",
+        onchange="loadAlgo()",
       ),
     ),
     Section(
-      # Textarea(id="input", width="100%", height="800px", placeholder="Enter a message..."),
-      Textarea(algos[0]["code"], id="input", style="width: 60%; height: 400px;", placeholder="energy buy/sell algo loading..."),
+      Textarea(algos[0]["code"], id="algo-input", style="width: 60%; height: 400px;", placeholder="energy buy/sell algo loading..."),
       Button("Save", onclick="save()")
     ),
+    Script(f"""
+      const algos = {json.dumps(algos)};
+      function loadAlgo() {{
+        const algoId = document.getElementById("algo-select").value;
+        const algo = algos.find(a => a.id === algoId);
+        if (algo) {{
+          document.getElementById("algo-input").value = algo.code;
+        }}
+      }}
+    """)
   )
-    
-
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=int(os.getenv("PORT", default=8000)))
