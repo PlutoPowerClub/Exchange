@@ -16,6 +16,13 @@ async def get(fname:str, ext:str): return FileResponse(f'{fname}.{ext}')
 
 algos = [
   {
+    "id": "cloud",
+    "name": "Hold During Extended Cloud Cover",
+    "code": "def cloud(data):\n  return data",
+    "description": "Buy/sell only when it is mostly sunny, to ensure our community has energy to use for our needs.",
+    "params": []
+  },
+  {
     "id": "sma",
     "name": "Simple Moving Average",
     "code": "def sma(data, window=5):\n  return data.rolling(window=window).mean()",
@@ -32,13 +39,6 @@ algos = [
     "params": [
       {"name": "window", "type": "int", "default": 5, "description": "The number of periods to average."}
     ]
-  },
-  {
-    "id": "cloud",
-    "name": "Hold During Cloudy Weeks",
-    "code": "def cloud(data):\n  return data",
-    "description": "Like SMA, but only buy/sell during cloudy weeks.",
-    "params": []
   },
   {
     "id": "linreg",
@@ -181,9 +181,9 @@ def get():
       H2("Algorithm"),
       P("Choose exactly how you buy and sell energy in real time."),
       Select(
+        Option("Hold During Extended Cloud Cover", value="cloud"),
         Option("Simple Moving Average", value="sma"),
         Option("Exponential Moving Average", value="ema"),
-        Option("Hold During Cloudy Weeks", value="cloud"),
         Option("Linear Regression", value="linreg"),
         Option("Random Forest", value="rf"),
         Option("Neural Network (PyTorch)", value="nnpytorch"),

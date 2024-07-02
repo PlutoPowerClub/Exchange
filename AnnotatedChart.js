@@ -149,12 +149,12 @@ grid: {
   }
 },
 title: {
-  text: 'UK Energy Prices',
+  text: 'UK Energy Prices from Octopus Energy Agile Tariff API',
   align: 'left'
 },
 labels: series.datetime,
 xaxis: {
-  // type: 'datetime',
+  type: 'datetime',
   labels: {
     datetimeFormatter: {
       year: 'yyyy',
