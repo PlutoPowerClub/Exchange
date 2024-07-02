@@ -19,22 +19,29 @@ def get():
   return Title("Starfish Exchange"), Main(
     Section(
       H1("Starfish Exchange"),
-      P("Welcome to the Starfish Exchange!"),
-      A("Click here to learn more", href="/about")
-    ),
-    Section(
-      H2("Energy Prices"),
-      P("Current energy prices are:"),
-      Ul(
-        Li("Solar: $0.02"),
-        Li("Wind: $0.03"),  
-        Li("Hydro: $0.04")
-      )
     ),
     Section(
       H2("Energy Prices in Real Time"),
       Div(id="chart", width="100%", height="500px")
-    )
+    ),
+    Section(
+      H2("Algorithm"),
+      P("Here we empower your community to choose how you buy and sell energy in real time."),
+      Select(
+        Option("Simple Moving Average", value="sma"),
+        Option("Exponential Moving Average", value="ema"),
+        Option("Hold During Cloudy Weeks", value="cloud"),
+        Option("Linear Regression", value="linreg"),
+        Option("Random Forest", value="rf"),
+        Option("Neural Network", value="nn"),
+        Option("Other", value="other")
+      ),
+    ),
+    Section(
+      # Textarea(id="input", width="100%", height="800px", placeholder="Enter a message..."),
+      Textarea(id="input", style="width: 60%; height: 400px;", placeholder="energy buy/sell algo loading...", content="if TODO"),
+      Button("Save", onclick="save()")
+    ),
   )
     
 
