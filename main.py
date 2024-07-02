@@ -1,7 +1,12 @@
 from fasthtml.common import *
 import uvicorn
 
-app = FastHTML()
+app = FastHTMLWithLiveReload(hdrs=(
+  # Script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'),
+  Script(src='https://cdn.jsdelivr.net/npm/apexcharts'),
+  Script(src='ZoomableTimeSeries.js'),
+  )
+)
 rt = app.route
 
 @rt("/")
@@ -20,6 +25,10 @@ def get():
         Li("Wind: $0.03"),  
         Li("Hydro: $0.04")
       )
+    ),
+    Section(
+      H2("Energy Prices in Real Time"),
+      Div(id="chart")
     )
   )
     
