@@ -4,10 +4,15 @@ import uvicorn
 app = FastHTMLWithLiveReload(hdrs=(
   # Script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'),
   Script(src='https://cdn.jsdelivr.net/npm/apexcharts'),
-  Script(src='ZoomableTimeSeries.js'),
+  Script(src='AnnotatedChart.js'),
   )
 )
 rt = app.route
+
+# Static files
+@rt("/{fname:path}.{ext:static}")
+async def get(fname:str, ext:str): return FileResponse(f'{fname}.{ext}')
+
 
 @rt("/")
 def get():
@@ -28,7 +33,7 @@ def get():
     ),
     Section(
       H2("Energy Prices in Real Time"),
-      Div(id="chart")
+      Div(id="chart", width="100%", height="500px")
     )
   )
     

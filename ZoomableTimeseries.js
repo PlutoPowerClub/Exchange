@@ -1,3 +1,7 @@
+var dates = [
+    
+];
+
 var options = {
     series: [{
     name: 'XYZ MOTORS',
